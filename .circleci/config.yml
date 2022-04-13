@@ -39,6 +39,18 @@ jobs:
           name: Lint Dockerfile
           command: |
             hadolint Dockerfile
+  scan-app:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [build]
+      - run:
+          name: scan src
+          working_directory: ./app
+          command: |
+            npm audit --audit-level=critical
 
 workflows:
   default:
@@ -46,3 +58,5 @@ workflows:
       - install-dependencies
       - linting:
           requires: [ install-dependencies ]
+      - scan-app:
+          requires: [ lint ]
