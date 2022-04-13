@@ -2,7 +2,7 @@ module.exports = {
   "env": {
     "node": true,
     "commonjs": true,
-    "es2021": true,
+    "es6": true,
     "browser": true
   },
   "extends": [
@@ -12,7 +12,7 @@ module.exports = {
   ],
   "plugins": ["react", "jsx-a11y"],
   "parserOptions": {
-    "ecmaVersion": 12,
+    "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
