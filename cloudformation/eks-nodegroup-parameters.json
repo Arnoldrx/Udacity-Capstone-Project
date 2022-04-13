@@ -1,0 +1,14 @@
+[
+  {
+    "ParameterKey": "EnvironmentName",
+    "ParameterValue": "CapstoneProject"
+  },
+  {
+    "ParameterKey": "NodeGroupName",
+    "ParameterValue": "Capstone"
+  },
+  {
+    "ParameterKey": "EKSClusterName",
+    "ParameterValue": "Capstone-Cluster"
+  }
+]

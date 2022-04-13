@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capstone-project
+  labels:
+    app: capstone-project
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: capstone-project
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: capstone-project
+    spec:
+      containers:
+        - image: abdelrahmanma/capstone-project:latest
+          name: capstone-project
+          ports:
+            - containerPort: 3000
+              name: nodejs-server

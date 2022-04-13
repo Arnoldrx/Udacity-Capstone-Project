@@ -1,0 +1,14 @@
+[
+  {
+    "ParameterKey": "EnvironmentName",
+    "ParameterValue": "CapstoneProject"
+  },
+  {
+    "ParameterKey": "IAMRoleEKS",
+    "ParameterValue": "EKSRole"
+  },
+  {
+    "ParameterKey": "EKSClusterName",
+    "ParameterValue": "Capstone-Cluster"
+  }
+]
