@@ -52,6 +52,25 @@ jobs:
           command: |
             npm audit --audit-level=critical
 
+  build-docker:
+    working_directory: /app
+    docker:
+      - image: docker:17.05.0-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - deploy:
+          name: Push application Docker image
+          command: |
+            DOCKERPATH="arnoldrx/capstone-project"
+            docker build --tag=capstone-project .
+            docker login -u arnoldrx -p "$DOCKER_PASSWORD"
+            docker image tag capstone-project $DOCKERPATH:latest
+            docker image push $DOCKERPATH
+            docker image tag capstone-project $DOCKERPATH:${CIRCLE_WORKFLOW_ID:0:7}
+            docker image push $DOCKERPATH:${CIRCLE_WORKFLOW_ID:0:7}
+    
+
 workflows:
   default:
     jobs:
