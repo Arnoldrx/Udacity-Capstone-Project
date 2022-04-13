@@ -59,4 +59,4 @@ workflows:
       - linting:
           requires: [ install-dependencies ]
       - scan-app:
-          requires: [ lint ]
+          requires: [ linting ]
