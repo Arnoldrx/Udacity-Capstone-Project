@@ -26,7 +26,7 @@ jobs:
           name: Lint app
           working_directory: ./app
           command: |
-            npm run lint
+            yarn run lint
 
       - run:
           name: Install hadolint
