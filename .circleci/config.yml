@@ -24,7 +24,7 @@ jobs:
 
       - run:
           name: Lint app
-          working_directory: ./src
+          working_directory: ./app
           command: |
             npm run lint
 
