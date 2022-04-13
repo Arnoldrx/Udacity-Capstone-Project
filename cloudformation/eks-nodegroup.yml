@@ -85,7 +85,7 @@ Resources:
       FromPort: 1025
       GroupId:
         Fn::ImportValue:
-          Fn::Sub: "${EnvironmentName}-CP-SG"
+          Fn::Sub: "${EnvironmentName}-CL-SG"
       IpProtocol: tcp
       ToPort: 65535
 
@@ -98,7 +98,7 @@ Resources:
       FromPort: 443
       GroupId:
         Fn::ImportValue:
-          Fn::Sub: "${EnvironmentName}-CP-SG"
+          Fn::Sub: "${EnvironmentName}-CL-SG"
       IpProtocol: tcp
       ToPort: 443
 
@@ -112,7 +112,7 @@ Resources:
       IpProtocol: tcp
       SourceSecurityGroupId:
         Fn::ImportValue:
-          Fn::Sub: "${EnvironmentName}-CP-SG"
+          Fn::Sub: "${EnvironmentName}-CL-SG"
       ToPort: 65535
 
   NodeSecurityGroupFromClusterOn443Ingress:
@@ -125,7 +125,7 @@ Resources:
       IpProtocol: tcp
       SourceSecurityGroupId:
         Fn::ImportValue:
-          Fn::Sub: "${EnvironmentName}-CP-SG"
+          Fn::Sub: "${EnvironmentName}-CL-SG"
       ToPort: 443
 
   EKSNodegroup:

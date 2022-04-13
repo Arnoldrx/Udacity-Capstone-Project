@@ -14,7 +14,35 @@ jobs:
           paths: [app/node_modules]
           key: build
 
+  linting:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [ build ]
+
+      - run:
+          name: Lint app
+          working_directory: ./src
+          command: |
+            npm run lint
+
+      - run:
+          name: Install hadolint
+          command: |
+            sudo wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
+            sudo chmod +x /bin/hadolint
+
+
+      - run:
+          name: Lint Dockerfile
+          command: |
+            hadolint Dockerfile
+
 workflows:
   default:
     jobs:
       - install-dependencies
+      - linting:
+          requires: [ install-dependencies ]
