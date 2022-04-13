@@ -1,0 +1,20 @@
+version: 2.1
+
+jobs:
+  install-dependencies:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run:
+          name: app dependencies
+          working_directory: ./app
+          command: npm install
+      - save_cache:
+          paths: [app/node_modules]
+          key: build
+
+workflows:
+  default:
+    jobs:
+      - install-dependencies
