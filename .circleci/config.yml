@@ -47,7 +47,7 @@ jobs:
       - restore_cache:
           keys: [build]
       - run:
-          name: scan src
+          name: scan app
           working_directory: ./app
           command: |
             npm audit --audit-level=critical
