@@ -94,7 +94,6 @@ jobs:
       - run:
           name: Update Deployment
           command: |
-            aws configure
             PROJECT=capstone
             IMAGE="arnoldrx/capstone-project"
             aws eks --region us-east-1 update-kubeconfig --name Capstone-Cluster
@@ -110,7 +109,8 @@ workflows:
   default:
     jobs:
       - install-dependencies
-      - aws-cli-cred-setup
+      - aws-cli-cred-setup:
+          context: aws
       - linting:
           requires: [ install-dependencies ]
       - scan-app:
