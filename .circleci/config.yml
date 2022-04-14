@@ -16,14 +16,6 @@ jobs:
           paths: [app/node_modules]
           key: build
 
-  aws-cli-cred-setup:
-    executor: aws-cli/default
-    steps:
-      - aws-cli/setup:
-          aws-access-key-id: AWS_ACCESS_KEY
-          aws-secret-access-key: AWS_ACCESS_SECRET
-          aws-region: AWS_REGION_NAME
-
   linting:
     docker:
       - image: circleci/node:13.8.0
@@ -86,29 +78,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install dependencies
-          command: |
-            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-            install -m 0755 kubectl /bin/kubectl\
 
-      - run:
-          name: Installing aws-iam-authenticator
-          command: |
-            curl -o aws-iam-authenticator curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.13.7/2019-06-11/bin/linux/amd64/aws-iam-authenticator
-            chmod +x ./aws-iam-authenticator
-            sudo mv ./aws-iam-authenticator /usr/local/bin/aws-iam-authenticator
-
-      - run:
-          name: Update Deployment
-          command: |
-            PROJECT=capstone
-            IMAGE="arnoldrx/capstone-project"
-            aws eks --region us-east-1 update-kubeconfig --name Capstone-Cluster
-            kubectl apply -f kubernetes/rollback.yml
-            kubectl apply -f kubernetes/deployService.yml
-            kubectl set image deployments/$PROJECT $PROJECT=$IMAGE:${CIRCLE_WORKFLOW_ID:0:7}
-            kubectl get nodes
-            kubectl get pods
             
             
 
@@ -116,20 +86,12 @@ workflows:
   default:
     jobs:
       - install-dependencies
-      - aws-cli-cred-setup:
-          context: aws
       - linting:
           requires: [ install-dependencies ]
       - scan-app:
           requires: [ linting ]
       - build-docker:
           requires: [ scan-app ]
-          filters:
-            branches:
-              only: [ main ]
-      - deploy:
-          context: aws
-          requires: [ build-docker, aws-cli-cred-setup ]
           filters:
             branches:
               only: [ main ]
