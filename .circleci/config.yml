@@ -16,14 +16,6 @@ jobs:
           paths: [app/node_modules]
           key: build
 
-  aws-cli-cred-setup:
-    executor: aws-cli/default
-    steps:
-      - aws-cli/setup:
-          aws-access-key-id: AWS_ACCESS_KEY
-          aws-secret-access-key: AWS_ACCESS_SECRET
-          aws-region: AWS_REGION_NAME
-
   linting:
     docker:
       - image: circleci/node:13.8.0
@@ -81,10 +73,15 @@ jobs:
             docker image push $DOCKERPATH:${CIRCLE_WORKFLOW_ID:0:7}
 
   deploy:
+    executor: aws-cli/default
     docker:
       - image: amazon/aws-cli
     steps:
       - checkout
+      - aws-cli/setup:
+          aws-access-key-id: AWS_ACCESS_KEY
+          aws-secret-access-key: AWS_ACCESS_SECRET
+          aws-region: AWS_REGION_NAME
       - run:
           name: Install dependencies
           command: |
@@ -109,7 +106,6 @@ workflows:
   default:
     jobs:
       - install-dependencies
-      - aws-cli-cred-setup
       - linting:
           requires: [ install-dependencies ]
       - scan-app:
