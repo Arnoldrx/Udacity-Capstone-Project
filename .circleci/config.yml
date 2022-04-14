@@ -109,8 +109,7 @@ workflows:
   default:
     jobs:
       - install-dependencies
-      - aws-cli-cred-setup:
-          context: aws
+      - aws-cli-cred-setup
       - linting:
           requires: [ install-dependencies ]
       - scan-app:
