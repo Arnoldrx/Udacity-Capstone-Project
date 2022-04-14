@@ -69,7 +69,31 @@ jobs:
             docker image push $DOCKERPATH
             docker image tag capstone-project $DOCKERPATH:${CIRCLE_WORKFLOW_ID:0:7}
             docker image push $DOCKERPATH:${CIRCLE_WORKFLOW_ID:0:7}
-    
+
+  deploy:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            install -m 0755 kubectl /bin/kubectl
+
+      - run:
+          name: Update Deployment
+          command: |
+            PROJECT=capstone
+            IMAGE="arnoldrx/capstone-project"
+            aws eks --region us-east-1 update-kubeconfig --name Capstone-Cluster
+            kubectl apply -f kubernetes/rollback.yml
+            kubectl apply -f kubernetes/deployService.yml
+            kubectl set image deployments/$PROJECT $PROJECT=$IMAGE:${CIRCLE_WORKFLOW_ID:0:7}
+            kubectl get nodes
+            kubectl get pods
+            
+            
 
 workflows:
   default:
@@ -81,6 +105,11 @@ workflows:
           requires: [ linting ]
       - build-docker:
           requires: [ scan-app ]
+          filters:
+            branches:
+              only: [ main ]
+      - deploy:
+          requires: [ build-docker ]
           filters:
             branches:
               only: [ main ]
