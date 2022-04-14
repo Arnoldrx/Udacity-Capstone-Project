@@ -50,7 +50,7 @@ jobs:
           name: scan app
           working_directory: ./app
           command: |
-            npm audit --audit-level=critical
+            npm audit fix --force
 
   build-docker:
     working_directory: /app
