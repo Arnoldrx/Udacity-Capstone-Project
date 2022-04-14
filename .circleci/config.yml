@@ -89,12 +89,14 @@ jobs:
           name: Install dependencies
           command: |
             curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-            install -m 0755 kubectl /bin/kubectl
+            install -m 0755 kubectl /bin/kubectl\
+
       - run:
-          name: Environment Var
-          command: |
-            echo $AWS_ACCESS_KEY
-            echo $AWS_ACCESS_SECRET
+        name: Install aws-iam-authenticator
+        command: |
+          curl -o aws-iam-authenticator curl -o aws-iam-authenticator https://amazon-eks.s3-us-east-1.amazonaws.com/1.13.7/2019-06-11/bin/linux/amd64/aws-iam-authenticator
+          chmod +x ./aws-iam-authenticator
+          sudo mv ./aws-iam-authenticator /usr/local/bin/aws-iam-authenticator
 
       - run:
           name: Update Deployment
@@ -114,8 +116,8 @@ workflows:
   default:
     jobs:
       - install-dependencies
-      - aws-cli-cred-setup
-#          context: aws
+      - aws-cli-cred-setup:
+          context: aws
       - linting:
           requires: [ install-dependencies ]
       - scan-app:
