@@ -90,6 +90,11 @@ jobs:
           command: |
             curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
             install -m 0755 kubectl /bin/kubectl
+      - run:
+          name: Environment Var
+          command: |
+            echo $AWS_ACCESS_KEY
+            echo $AWS_ACCESS_SECRET
 
       - run:
           name: Update Deployment
