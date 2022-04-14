@@ -142,6 +142,7 @@ workflows:
               only: [ main ]
       - create-small-cluster:
           cluster-name: capstone-cluster
+          requires: [ build-docker ]
       - create-service:
           cluster-name: capstone-cluster
           requires: [ create-small-cluster ]
