@@ -23,11 +23,6 @@ jobs:
           aws-access-key-id: AWS_ACCESS_KEY
           aws-secret-access-key: AWS_ACCESS_SECRET
           aws-region: AWS_REGION_NAME
-      - run:
-          name: "echo Environment Variables"
-          command: |
-            echo $AWS_ACCESS_KEY
-            echo $AWS_ACCESS_SECRET
 
   linting:
     docker:
@@ -127,6 +122,7 @@ workflows:
               only: [ main ]
       - deploy:
           requires: [ build-docker, aws-cli-cred-setup ]
+          context: aws
           filters:
             branches:
               only: [ main ]
