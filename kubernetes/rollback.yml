@@ -20,7 +20,7 @@ spec:
         app: capstone-project
     spec:
       containers:
-        - image: abdelrahmanma/capstone-project:latest
+        - image: arnoldrx/capstone-project:latest
           name: capstone-project
           ports:
             - containerPort: 3000

@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  aws-cli: circleci/aws-cli@2.0
 
 jobs:
   install-dependencies:
@@ -13,6 +15,14 @@ jobs:
       - save_cache:
           paths: [app/node_modules]
           key: build
+
+  aws-cli-cred-setup:
+    executor: aws-cli/default
+    steps:
+      - aws-cli/setup:
+          aws-access-key-id: $AWS_ACCESS_KEY
+          aws-secret-access-key: $AWS_ACCESS_SECRET
+          aws-region: $AWS_REGION_NAME
 
   linting:
     docker:
@@ -99,6 +109,8 @@ workflows:
   default:
     jobs:
       - install-dependencies
+      - aws-cli-cred-setup:
+          context: aws
       - linting:
           requires: [ install-dependencies ]
       - scan-app:
@@ -109,7 +121,7 @@ workflows:
             branches:
               only: [ main ]
       - deploy:
-          requires: [ build-docker ]
+          requires: [ build-docker, aws-cli-cred-setup ]
           filters:
             branches:
               only: [ main ]
