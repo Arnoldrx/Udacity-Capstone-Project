@@ -72,30 +72,6 @@ Resources:
         - Key: Name
           Value: !Sub ${EnvironmentName} Public Subnet (AZ2)
 
-  NatGateway1EIP:
-    Type: AWS::EC2::EIP
-    DependsOn: InternetGatewayAttachment
-    Properties:
-      Domain: vpc
-
-  NatGateway2EIP:
-    Type: AWS::EC2::EIP
-    DependsOn: InternetGatewayAttachment
-    Properties:
-      Domain: vpc
-
-  NatGateway1:
-    Type: AWS::EC2::NatGateway
-    Properties:
-      AllocationId: !GetAtt NatGateway1EIP.AllocationId
-      SubnetId: !Ref PublicSubnet1
-
-  NatGateway2:
-    Type: AWS::EC2::NatGateway
-    Properties:
-      AllocationId: !GetAtt NatGateway2EIP.AllocationId
-      SubnetId: !Ref PublicSubnet2
-
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
@@ -124,7 +100,7 @@ Resources:
       RouteTableId: !Ref PublicRouteTable
       SubnetId: !Ref PublicSubnet2
 
-  ClusterSecurityGroup:
+  EKSSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Cluster communication with worker nodes
@@ -167,8 +143,8 @@ Outputs:
     Export:
       Name: !Sub ${EnvironmentName}-PUB2-SN
 
-  ClusterSecurityGroup:
+  EKSSecurityGroup:
     Description: A reference to the security group of connection between master and nodes
-    Value: !Join [",", [!Ref ClusterSecurityGroup]]
+    Value: !Join [",", [!Ref EKSSecurityGroup]]
     Export:
       Name: !Sub ${EnvironmentName}-CL-SG

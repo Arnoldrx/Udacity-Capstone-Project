@@ -88,13 +88,11 @@ jobs:
       - run:
           name: Update Deployment
           command: |
-            PROJECT=capstone-project 
+            PROJECT=capstone-project
             IMAGE="arnoldrx/capstone-project"
             aws eks --region us-east-1 update-kubeconfig --name Capstone-Cluster
             aws sts get-caller-identity
-            cat ~/.kube/config
-            kubectl apply -f kubernetes/rollback.yml
-            kubectl apply -f kubernetes/deployService.yml
+            kubectl apply -f kubernetes/deployment-service.yml
             kubectl set image deployments/$PROJECT $PROJECT=$IMAGE:${CIRCLE_WORKFLOW_ID:0:7}
             kubectl get nodes
             kubectl get pods
