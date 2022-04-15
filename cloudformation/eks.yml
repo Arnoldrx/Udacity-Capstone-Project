@@ -1,5 +1,5 @@
 Description: >
-  Kubernetes master
+  EKS Cluster
 
 Parameters:
   EnvironmentName:
