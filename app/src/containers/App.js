@@ -22,7 +22,7 @@ class App extends Component {
     }
 
 
-    onSearchChange (event) {
+    onSearchChange = (event) => {
         this.setState({ searchField: event.target.value})
         
     }
