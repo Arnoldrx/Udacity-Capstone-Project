@@ -42,8 +42,6 @@ Resources:
         SubnetIds:
           - Fn::ImportValue: !Sub "${EnvironmentName}-PUB1-SN"
           - Fn::ImportValue: !Sub "${EnvironmentName}-PUB2-SN"
-          - Fn::ImportValue: !Sub "${EnvironmentName}-PRIV1-SN"
-          - Fn::ImportValue: !Sub "${EnvironmentName}-PRIV2-SN"
     DependsOn: [EKSIAMRole]
 
 Outputs:
