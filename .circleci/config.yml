@@ -88,7 +88,7 @@ jobs:
       - run:
           name: Update Deployment
           command: |
-            PROJECT=capstone-project
+            PROJECT=capstone-project 
             IMAGE="arnoldrx/capstone-project"
             aws eks --region us-east-1 update-kubeconfig --name Capstone-Cluster
             aws sts get-caller-identity
