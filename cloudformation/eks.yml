@@ -1,5 +1,5 @@
 Description: >
-  Abdelrahman Muhammad / Udacity DevOps Capstone Kubernetes master
+  Kubernetes master
 
 Parameters:
   EnvironmentName:

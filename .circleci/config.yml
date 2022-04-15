@@ -90,7 +90,7 @@ jobs:
           command: |
             PROJECT=capstone
             IMAGE="arnoldrx/capstone-project"
-            aws eks --region us-east-1 update-kubeconfig --name CapstoneCluster
+            aws eks --region us-east-1 update-kubeconfig --name Capstone-Cluster
             kubectl apply -f kubernetes/rollback.yml
             kubectl apply -f k8s/deployService.yml
             kubectl set image deployments/$PROJECT $PROJECT=$IMAGE:${CIRCLE_WORKFLOW_ID:0:7}
