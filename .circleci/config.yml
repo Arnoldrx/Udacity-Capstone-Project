@@ -88,9 +88,10 @@ jobs:
       - run:
           name: Update Deployment
           command: |
-            PROJECT=capstone
+            PROJECT=capstone-project
             IMAGE="arnoldrx/capstone-project"
             aws eks --region us-east-1 update-kubeconfig --name Capstone-Cluster
+            aws sts get-caller-identity
             cat ~/.kube/config
             kubectl apply -f kubernetes/rollback.yml
             kubectl apply -f kubernetes/deployService.yml
