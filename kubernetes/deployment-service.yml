@@ -57,3 +57,22 @@ spec:
       port: 443
       targetPort: 443
 
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: capstone-project
+  annotations:
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    kubernetes.io/ingress.class: "ingress-nginx"
+
+spec:
+  rules:
+    - host: robofriends.net
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: capstone-project
+              servicePort: 3000
+
