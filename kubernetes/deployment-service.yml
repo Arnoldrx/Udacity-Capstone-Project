@@ -63,7 +63,7 @@ kind: Ingress
 metadata:
   name: capstone-project
   annotations:
-    kubernetes.io/ingress.class: alb
+    kubernetes.io/ingress.class: "ingress-nginx"
     alb.ingress.kubernetes.io/healthcheck-path: /healthz
     alb.ingress.kubernetes.io/scheme: internet-facing
 
