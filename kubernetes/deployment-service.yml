@@ -66,9 +66,6 @@ metadata:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/healthcheck-path: /healthz
     alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/subnets:
-      - Fn::ImportValue:
-          Fn::Sub: "${EnvironmentName}-SUBNETS"
 
 spec:
   rules:
