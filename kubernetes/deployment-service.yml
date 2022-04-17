@@ -68,7 +68,7 @@ metadata:
 
 spec:
   rules:
-    - host: robofriends.net
+    - host: robofriends.com
       http:
         paths:
           - path: /
