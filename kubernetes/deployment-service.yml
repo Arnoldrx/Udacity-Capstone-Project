@@ -69,11 +69,12 @@ metadata:
 
 spec:
   rules:
-    - host: robofriends.com
-      http:
+    - http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: capstone-project
-              servicePort: 3000
+              service: capstone-project
+              port:
+                number: 3000
 
