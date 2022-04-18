@@ -55,8 +55,6 @@ Resources:
       CidrBlock: !Ref PublicSubnet1CIDR
       MapPublicIpOnLaunch: true
       Tags:
-        - Key: kubernetes.io/role/elb
-          Value: 1
         - Key: Name
           Value: !Sub ${EnvironmentName} Public Subnet (AZ1)
 
@@ -71,8 +69,6 @@ Resources:
       CidrBlock: !Ref PublicSubnet2CIDR
       MapPublicIpOnLaunch: true
       Tags:
-        - Key: kubernetes.io/role/elb
-          Value: 1
         - Key: Name
           Value: !Sub ${EnvironmentName} Public Subnet (AZ2)
 
