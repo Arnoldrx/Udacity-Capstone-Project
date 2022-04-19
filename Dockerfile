@@ -7,7 +7,7 @@ COPY ./app/package*.json ./
 RUN npm install
 
 COPY ./app ./
-
+tesrdgchvg
 RUN npm run build
 
 FROM nginx:alpine
