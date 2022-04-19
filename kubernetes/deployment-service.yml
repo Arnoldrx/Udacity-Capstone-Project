@@ -24,7 +24,7 @@ spec:
           name: capstone-project
           imagePullPolicy: Always
           ports:
-            - containerPort: 3000
+            - containerPort: 80
               name: nodejs-server
 ---
 apiVersion: v1
@@ -39,8 +39,8 @@ spec:
   type: LoadBalancer
   ports:
     - name: http
-      port: 3000
-      targetPort: 3000
+      port: 8000
+      targetPort: 80
       protocol: TCP
 
 ---
@@ -66,4 +66,4 @@ spec:
               service:
                 name: capstone-project
                 port:
-                  number: 3000
+                  number: 8000
