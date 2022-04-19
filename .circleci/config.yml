@@ -82,8 +82,11 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+            sudo mv ./kubectl /usr/local/bin/kubectl
             curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-            install -m 0755 kubectl /bin/kubectlq
+            chmod +x ./kubectl
+            sudo mv ./kubectl /usr/local/bin/kubectl
+            sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
       - run:
           name: Update Deployment
