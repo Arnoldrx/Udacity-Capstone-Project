@@ -1,5 +1,5 @@
 Description: >
-  network infrastructure
+  infrastructure
 
 Parameters:
   EnvironmentName:
@@ -167,7 +167,7 @@ Resources:
       NodeRole: !GetAtt NodeInstanceRole.Arn
       ScalingConfig:
         MinSize: 1
-        DesiredSize: 2
+        DesiredSize: 3
         MaxSize: 4
       Subnets:
         - !Ref PublicSubnet1
